@@ -9,7 +9,7 @@ import { Search, Plus, Trash2, Edit2, X, FileText, CheckCircle2 } from 'lucide-r
 import toast from 'react-hot-toast';
 
 export default function CustomersPage() {
-  const { clients, addClient, updateClient, removeClient } = useClientStore();
+  const { clients, addClient, updateClient, deleteClient } = useClientStore();
   const [searchTerm, setSearchTerm] = useState('');
   
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -107,7 +107,7 @@ export default function CustomersPage() {
 
   const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this customer?')) {
-      removeClient(id);
+      deleteClient(id);
       toast.success('Customer deleted');
     }
   };
