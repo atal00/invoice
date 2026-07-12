@@ -188,7 +188,7 @@ export const useInvoiceStore = create<InvoiceState>()(
       themeColor: '#1d4ed8', // Default blue
       fontFamily: 'var(--font-inter)', // Default font
       
-      calculations: { subtotal: 0, discountAmount: 0, subtotalAfterDiscount: 0, taxAmount1: 0, taxAmount2: 0, totalTax: 0, total: 0 },
+      calculations: { subtotal: 0, discountAmount: 0, subtotalAfterDiscount: 0, taxAmount1: 0, taxAmount2: 0, totalItemTax: 0, totalTax: 0, total: 0 },
       savedInvoices: [],
 
       setSender: (senderUpdates) => set((state) => ({ sender: { ...state.sender, ...senderUpdates } })),

@@ -21,6 +21,10 @@ const defaultPaymentDetails: PaymentDetails = {
   accountName: '',
   accountNumber: '',
   routingCode: '',
+  ifscCode: '',
+  swiftCode: '',
+  bankAddress: '',
+  bankNotes: '',
 };
 
 export const useProfileStore = create<ProfileState>()(
