@@ -48,10 +48,6 @@ export default function LoginPage() {
             </button>
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-            <Link href="#" style={{ color: '#475569', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none' }}>Forgot Password?</Link>
-          </div>
-          
         </form>
       </div>
     </div>
