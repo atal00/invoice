@@ -14,9 +14,6 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 export const metadata: Metadata = {
   title: "Varsaka Invoice",
   description: "Varsaka Premium Invoice Generator",
-  icons: {
-    icon: '/logo.png',
-  },
 };
 
 export default function RootLayout({
