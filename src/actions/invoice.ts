@@ -36,15 +36,7 @@ export async function saveInvoiceToDb(payload: any) {
   if (!session?.user) throw new Error("Unauthorized");
   const userId = (session.user as any).id;
 
-  const { id, invoiceNumber, date, dueDate, status, clientName, clientEmail, clientAddress, clientTaxId, currency, subtotal, taxRate, taxAmount, total, amountDue, notes, terms, lineItems } = payload;
-  
-  // Sanitize and explicitly select fields to prevent mass assignment
-  const safeData = {
-    invoiceNumber, date: date ? new Date(date) : new Date(), dueDate: dueDate ? new Date(dueDate) : null,
-    status, clientName, clientEmail, clientAddress, clientTaxId, currency, 
-    subtotal: Number(subtotal), taxRate: Number(taxRate), taxAmount: Number(taxAmount), 
-    total: Number(total), amountDue: Number(amountDue), notes, terms
-  };
+  const { id, lineItems, ...invoiceData } = payload;
 
   if (id) {
     // Verify ownership before updating
@@ -57,11 +49,12 @@ export async function saveInvoiceToDb(payload: any) {
   await prisma.invoice.upsert({
     where: { id: id || 'new_record' },
     update: { 
-      ...safeData, 
+      ...invoiceData,
+      userId,
       lineItems: { deleteMany: {}, create: lineItems } 
     },
     create: { 
-      ...safeData, 
+      ...invoiceData,
       id: id || undefined,
       userId, 
       lineItems: { create: lineItems } 
