@@ -96,12 +96,12 @@ export default function SecurityList({ initialIps }: { initialIps: any[] }) {
                   <td style={{ textAlign: 'right' }}>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
                       {isBlocked && (
-                        <Button variant="outline" onClick={() => handleUnblock(ipRecord.ip)} style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}>
+                        <Button variant="secondary" onClick={() => handleUnblock(ipRecord.ip)} style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}>
                           Unblock
                         </Button>
                       )}
                       <Button 
-                        variant={ipRecord.isPermanent ? "outline" : "primary"} 
+                        variant={ipRecord.isPermanent ? "secondary" : "primary"} 
                         onClick={() => handleTogglePermanent(ipRecord.ip, ipRecord.isPermanent)}
                         style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', background: ipRecord.isPermanent ? undefined : '#ef4444' }}
                       >
