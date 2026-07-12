@@ -32,14 +32,10 @@ export const ClientManager = () => {
       toast.error('Client name is required');
       return;
     }
-    const newClient = clientStore.addClient(formData);
-    if (newClient) {
-      invoiceStore.setClient(newClient);
-    } else {
-      // fallback if addClient doesn't return the full object
-      const added = clientStore.clients.find(c => c.name === formData.name);
-      if (added) invoiceStore.setClient(added);
-    }
+    clientStore.addClient(formData);
+    // fallback if addClient doesn't return the full object
+    const added = clientStore.clients.find(c => c.name === formData.name);
+    if (added) invoiceStore.setClient(added);
     toast.success('Client added and selected');
     setIsModalOpen(false);
     setFormData({ name: '', email: '', address: '', taxId: '' });
