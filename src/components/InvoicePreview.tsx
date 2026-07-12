@@ -42,13 +42,6 @@ export const InvoicePreview = () => {
         transition: 'all 0.3s ease'
       }}
     >
-      {/* Top Validation Badge */}
-      <div style={{ position: 'absolute', top: '1rem', right: '1rem', zIndex: 10 }} className="no-print">
-        <div className="badgeSuccess" style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', backgroundColor: 'rgba(16, 185, 129, 0.9)', color: 'white', padding: '0.25rem 0.75rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 600 }}>
-          <CheckCircle2 size={14} /> Autonomous Validation Check: Passed
-        </div>
-      </div>
-
       {renderTemplate()}
     </div>
   );

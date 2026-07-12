@@ -54,6 +54,30 @@ export default function ProfilePage() {
                </div>
              )}
           </div>
+          
+          <div style={{ marginBottom: '1.5rem' }}>
+             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Authorized Signature</label>
+             <input type="file" accept="image/*" onChange={(e) => {
+               const file = e.target.files?.[0];
+               if (file) {
+                 const reader = new FileReader();
+                 reader.onloadend = () => {
+                   updateProfile({ sender: { ...sender, signatureUrl: reader.result as string } });
+                 };
+                 reader.readAsDataURL(file);
+               }
+             }} style={{ padding: '0.5rem', border: '1px solid var(--border-light)', borderRadius: '0.5rem', width: '100%' }} />
+             {sender.signatureUrl && (
+               <div style={{ marginTop: '1rem' }}>
+                 <img src={sender.signatureUrl} alt="Signature" style={{ height: '60px', objectFit: 'contain', marginBottom: '0.5rem' }} />
+                 <div>
+                   <Button variant="secondary" onClick={() => updateProfile({ sender: { ...sender, signatureUrl: undefined } })} style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }}>
+                     Remove Signature
+                   </Button>
+                 </div>
+               </div>
+             )}
+          </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Input 

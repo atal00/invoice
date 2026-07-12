@@ -1,7 +1,9 @@
 import React from 'react';
 import { InvoiceState } from '@/store/invoiceStore';
+import { useProfileStore } from '@/store/profileStore';
 
 export const StandardTemplate = ({ store }: { store: InvoiceState }) => {
+  const profile = useProfileStore();
   const { calculations } = store;
   const themeColor = store.themeColor || 'var(--accent-primary)';
 
@@ -143,30 +145,41 @@ export const StandardTemplate = ({ store }: { store: InvoiceState }) => {
         );
       })()}
 
-      {/* Footer Notes */}
-      <div style={{ marginTop: 'auto' }}>
-        {store.notes && (
-          <div style={{ marginBottom: '1.5rem' }}>
-            <h4 style={{ fontSize: '0.8125rem', color: '#64748b', textTransform: 'uppercase', marginBottom: '0.375rem', fontWeight: 600 }}>Notes & Terms</h4>
-            <p style={{ fontSize: '0.875rem', color: '#334155', whiteSpace: 'pre-wrap' }}>{store.notes}</p>
-          </div>
-        )}
-
-        {store.paymentDetails && (store.paymentDetails.bankName || store.paymentDetails.accountNumber) && (
-          <div>
-            <h4 style={{ fontSize: '0.8125rem', color: '#64748b', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 600 }}>Payment Information</h4>
-            <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '0.25rem 1rem', fontSize: '0.875rem', color: '#334155' }}>
-              {store.paymentDetails.bankName && <><strong style={{ color: '#0f172a' }}>Bank Name:</strong> <span>{store.paymentDetails.bankName}</span></>}
-              {store.paymentDetails.accountName && <><strong style={{ color: '#0f172a' }}>Account Name:</strong> <span>{store.paymentDetails.accountName}</span></>}
-              {store.paymentDetails.accountNumber && <><strong style={{ color: '#0f172a' }}>Account No:</strong> <span>{store.paymentDetails.accountNumber}</span></>}
-              {store.paymentDetails.ifscCode && <><strong style={{ color: '#0f172a' }}>IFSC Code:</strong> <span>{store.paymentDetails.ifscCode}</span></>}
-              {store.paymentDetails.swiftCode && <><strong style={{ color: '#0f172a' }}>SWIFT Code:</strong> <span>{store.paymentDetails.swiftCode}</span></>}
-              {store.paymentDetails.routingCode && <><strong style={{ color: '#0f172a' }}>Routing Code:</strong> <span>{store.paymentDetails.routingCode}</span></>}
-              {store.paymentDetails.bankAddress && <><strong style={{ color: '#0f172a' }}>Bank Address:</strong> <span>{store.paymentDetails.bankAddress}</span></>}
+      {/* Footer Notes & Signature */}
+      <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingTop: '2rem' }}>
+        <div style={{ flex: 1, paddingRight: '2rem' }}>
+          {store.notes && (
+            <div style={{ marginBottom: '1.5rem' }}>
+              <h4 style={{ fontSize: '0.8125rem', color: '#64748b', textTransform: 'uppercase', marginBottom: '0.375rem', fontWeight: 600 }}>Notes & Terms</h4>
+              <p style={{ fontSize: '0.875rem', color: '#334155', whiteSpace: 'pre-wrap' }}>{store.notes}</p>
             </div>
-            {store.paymentDetails.bankNotes && (
-              <p style={{ fontSize: '0.875rem', color: '#334155', whiteSpace: 'pre-wrap', marginTop: '0.5rem' }}>{store.paymentDetails.bankNotes}</p>
-            )}
+          )}
+
+          {store.paymentDetails && (store.paymentDetails.bankName || store.paymentDetails.accountNumber) && (
+            <div>
+              <h4 style={{ fontSize: '0.8125rem', color: '#64748b', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 600 }}>Payment Information</h4>
+              <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '0.25rem 1rem', fontSize: '0.875rem', color: '#334155' }}>
+                {store.paymentDetails.bankName && <><strong style={{ color: '#0f172a' }}>Bank Name:</strong> <span>{store.paymentDetails.bankName}</span></>}
+                {store.paymentDetails.accountName && <><strong style={{ color: '#0f172a' }}>Account Name:</strong> <span>{store.paymentDetails.accountName}</span></>}
+                {store.paymentDetails.accountNumber && <><strong style={{ color: '#0f172a' }}>Account No:</strong> <span>{store.paymentDetails.accountNumber}</span></>}
+                {store.paymentDetails.ifscCode && <><strong style={{ color: '#0f172a' }}>IFSC Code:</strong> <span>{store.paymentDetails.ifscCode}</span></>}
+                {store.paymentDetails.swiftCode && <><strong style={{ color: '#0f172a' }}>SWIFT Code:</strong> <span>{store.paymentDetails.swiftCode}</span></>}
+                {store.paymentDetails.routingCode && <><strong style={{ color: '#0f172a' }}>Routing Code:</strong> <span>{store.paymentDetails.routingCode}</span></>}
+                {store.paymentDetails.bankAddress && <><strong style={{ color: '#0f172a' }}>Bank Address:</strong> <span>{store.paymentDetails.bankAddress}</span></>}
+              </div>
+              {store.paymentDetails.bankNotes && (
+                <p style={{ fontSize: '0.875rem', color: '#334155', whiteSpace: 'pre-wrap', marginTop: '0.5rem' }}>{store.paymentDetails.bankNotes}</p>
+              )}
+            </div>
+          )}
+        </div>
+        
+        {(store.sender.signatureUrl || profile.sender.signatureUrl) && (
+          <div style={{ width: '250px', textAlign: 'center' }}>
+            <img src={store.sender.signatureUrl || profile.sender.signatureUrl} alt="Authorized Signature" style={{ maxWidth: '100%', maxHeight: '120px', objectFit: 'contain', marginBottom: '0.5rem' }} />
+            <div style={{ borderTop: '1px solid #94a3b8', paddingTop: '0.5rem', fontSize: '0.875rem', fontWeight: 600, color: '#334155' }}>
+              Authorized Signatory
+            </div>
           </div>
         )}
       </div>

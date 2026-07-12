@@ -140,6 +140,13 @@ export const InvoiceEditor = () => {
                   }}
                   placeholder="Item name"
                 />
+                <textarea
+                  className={styles.glassInput}
+                  style={{ marginTop: '0.5rem', minHeight: '40px', resize: 'vertical', padding: '0.5rem', fontSize: '0.875rem' }}
+                  value={item.description || ''}
+                  onChange={(e) => store.updateLineItem(item.id, { description: e.target.value })}
+                  placeholder="Item description (optional)"
+                />
                 <datalist id={`saved-items-${item.id}`}>
                   {itemStore.items.map(saved => (
                     <option key={saved.id} value={saved.name} />

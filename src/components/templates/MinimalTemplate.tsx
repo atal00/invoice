@@ -1,7 +1,10 @@
 import React from 'react';
 import { InvoiceState } from '@/store/invoiceStore';
+import { numberToWords } from '@/lib/numberToWords';
+import { useProfileStore } from '@/store/profileStore';
 
 export const MinimalTemplate = ({ store }: { store: InvoiceState }) => {
+  const profile = useProfileStore();
   const { calculations } = store;
 
   return (
@@ -164,21 +167,32 @@ export const MinimalTemplate = ({ store }: { store: InvoiceState }) => {
           </div>
         )}
 
-        {store.paymentDetails && (store.paymentDetails.bankName || store.paymentDetails.accountNumber) && (
-          <div style={{ maxWidth: '45%', textAlign: 'right' }}>
-            <div style={{ textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem', fontWeight: 600 }}>Payment Info</div>
+        <div style={{ maxWidth: '45%', textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2rem' }}>
+          {store.paymentDetails && (store.paymentDetails.bankName || store.paymentDetails.accountNumber) && (
             <div>
-              {store.paymentDetails.bankName && <div>{store.paymentDetails.bankName}</div>}
-              {store.paymentDetails.accountName && <div>{store.paymentDetails.accountName}</div>}
-              {store.paymentDetails.accountNumber && <div>Acc: {store.paymentDetails.accountNumber}</div>}
-              {store.paymentDetails.ifscCode && <div>IFSC: {store.paymentDetails.ifscCode}</div>}
-              {store.paymentDetails.swiftCode && <div>SWIFT: {store.paymentDetails.swiftCode}</div>}
-              {store.paymentDetails.routingCode && <div>Routing: {store.paymentDetails.routingCode}</div>}
-              {store.paymentDetails.bankAddress && <div>{store.paymentDetails.bankAddress}</div>}
-              {store.paymentDetails.bankNotes && <div style={{ whiteSpace: 'pre-wrap', marginTop: '0.5rem' }}>{store.paymentDetails.bankNotes}</div>}
+              <div style={{ textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem', fontWeight: 600 }}>Payment Info</div>
+              <div>
+                {store.paymentDetails.bankName && <div>{store.paymentDetails.bankName}</div>}
+                {store.paymentDetails.accountName && <div>{store.paymentDetails.accountName}</div>}
+                {store.paymentDetails.accountNumber && <div>Acc: {store.paymentDetails.accountNumber}</div>}
+                {store.paymentDetails.ifscCode && <div>IFSC: {store.paymentDetails.ifscCode}</div>}
+                {store.paymentDetails.swiftCode && <div>SWIFT: {store.paymentDetails.swiftCode}</div>}
+                {store.paymentDetails.routingCode && <div>Routing: {store.paymentDetails.routingCode}</div>}
+                {store.paymentDetails.bankAddress && <div>{store.paymentDetails.bankAddress}</div>}
+                {store.paymentDetails.bankNotes && <div style={{ whiteSpace: 'pre-wrap', marginTop: '0.5rem' }}>{store.paymentDetails.bankNotes}</div>}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+          
+          {(store.sender.signatureUrl || profile.sender.signatureUrl) && (
+            <div style={{ width: '250px', textAlign: 'center', marginTop: (store.paymentDetails && (store.paymentDetails.bankName || store.paymentDetails.accountNumber)) ? '0' : 'auto' }}>
+              <img src={store.sender.signatureUrl || profile.sender.signatureUrl} alt="Authorized Signature" style={{ maxWidth: '100%', maxHeight: '120px', objectFit: 'contain', marginBottom: '0.5rem' }} />
+              <div style={{ borderTop: '1px solid #000', paddingTop: '0.5rem', fontSize: '0.75rem', fontWeight: 600 }}>
+                Authorized Signatory
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

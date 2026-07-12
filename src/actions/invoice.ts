@@ -46,20 +46,25 @@ export async function saveInvoiceToDb(payload: any) {
     }
   }
   
-  await prisma.invoice.upsert({
-    where: { id: id || 'new_record' },
-    update: { 
-      ...invoiceData,
-      userId,
-      lineItems: { deleteMany: {}, create: lineItems } 
-    },
-    create: { 
-      ...invoiceData,
-      id: id || undefined,
-      userId, 
-      lineItems: { create: lineItems } 
-    }
-  });
+  try {
+    await prisma.invoice.upsert({
+      where: { id: id || 'new_record' },
+      update: { 
+        ...invoiceData,
+        userId,
+        lineItems: { deleteMany: {}, create: lineItems } 
+      },
+      create: { 
+        ...invoiceData,
+        id: id || undefined,
+        userId, 
+        lineItems: { create: lineItems } 
+      }
+    });
+  } catch (error: any) {
+    console.error("Prisma Save Invoice Error: ", error);
+    throw new Error(error.message || "Failed to save to database");
+  }
   
   revalidatePath('/dashboard');
 }

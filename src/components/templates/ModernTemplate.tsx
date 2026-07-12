@@ -1,7 +1,10 @@
 import React from 'react';
 import { InvoiceState } from '@/store/invoiceStore';
+import { numberToWords } from '@/lib/numberToWords';
+import { useProfileStore } from '@/store/profileStore';
 
 export const ModernTemplate = ({ store }: { store: InvoiceState }) => {
+  const profile = useProfileStore();
   const { calculations } = store;
   const themeColor = store.themeColor || 'var(--accent-primary)';
 
@@ -185,6 +188,17 @@ export const ModernTemplate = ({ store }: { store: InvoiceState }) => {
             </div>
           )}
         </div>
+
+        {(store.sender.signatureUrl || profile.sender.signatureUrl) && (
+          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ width: '250px', textAlign: 'center' }}>
+              <img src={store.sender.signatureUrl || profile.sender.signatureUrl} alt="Authorized Signature" style={{ maxWidth: '100%', maxHeight: '120px', objectFit: 'contain', marginBottom: '0.5rem' }} />
+              <div style={{ borderTop: '1px solid #94a3b8', paddingTop: '0.5rem', fontSize: '0.875rem', fontWeight: 600, color: '#334155' }}>
+                Authorized Signatory
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

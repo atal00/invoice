@@ -17,6 +17,7 @@ export interface SenderDetails {
   address: string;
   taxId?: string;
   logoUrl?: string;
+  signatureUrl?: string;
 }
 
 export interface ClientDetails {

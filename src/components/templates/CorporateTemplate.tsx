@@ -1,8 +1,10 @@
 import React from 'react';
 import { InvoiceState } from '@/store/invoiceStore';
 import { numberToWords } from '@/lib/numberToWords';
+import { useProfileStore } from '@/store/profileStore';
 
 export const CorporateTemplate = ({ store }: { store: InvoiceState }) => {
+  const profile = useProfileStore();
   const { calculations } = store;
   const themeColor = store.themeColor || '#2563eb';
 
@@ -207,8 +209,11 @@ export const CorporateTemplate = ({ store }: { store: InvoiceState }) => {
           )}
         </div>
         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
-          <div style={{ fontSize: '0.75rem', marginBottom: '3rem' }}>For {store.sender.name || 'Your Company'}</div>
-          <div style={{ borderTop: '1px solid #000', width: '200px', paddingTop: '0.5rem', fontSize: '0.75rem' }}>
+          <div style={{ fontSize: '0.75rem', marginBottom: (store.sender.signatureUrl || profile.sender.signatureUrl) ? '0.5rem' : '3rem' }}>For {store.sender.name || 'Your Company'}</div>
+          {(store.sender.signatureUrl || profile.sender.signatureUrl) && (
+            <img src={store.sender.signatureUrl || profile.sender.signatureUrl} alt="Authorized Signature" style={{ maxWidth: '100%', maxHeight: '120px', objectFit: 'contain', marginBottom: '0.5rem' }} />
+          )}
+          <div style={{ borderTop: '1px solid #000', width: '250px', paddingTop: '0.5rem', fontSize: '0.75rem' }}>
             Authorized Signatory
           </div>
         </div>

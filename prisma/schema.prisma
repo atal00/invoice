@@ -51,6 +51,7 @@ model Invoice {
   status        String   @default("Pending")
   themeColor    String?
   logoUrl       String?
+  signatureUrl  String? @db.Text
   fontFamily    String?
   
   bankName      String?

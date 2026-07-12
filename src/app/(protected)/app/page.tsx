@@ -26,11 +26,27 @@ export default function CoreGeneratorApp() {
   }, []);
 
   useEffect(() => {
-    if (mounted && !store.sender.name && profile.sender.name) {
-      store.setSender(profile.sender);
-      store.setInvoiceDetails({ paymentDetails: profile.paymentDetails });
+    if (mounted) {
+      if (!store.sender.name && profile.sender.name) {
+        store.setSender(profile.sender);
+        store.setInvoiceDetails({ paymentDetails: profile.paymentDetails });
+      } else {
+        let updated = false;
+        const newSender = { ...store.sender };
+        if (profile.sender.signatureUrl && store.sender.signatureUrl !== profile.sender.signatureUrl) {
+          newSender.signatureUrl = profile.sender.signatureUrl;
+          updated = true;
+        }
+        if (profile.sender.logoUrl && store.sender.logoUrl !== profile.sender.logoUrl) {
+          newSender.logoUrl = profile.sender.logoUrl;
+          updated = true;
+        }
+        if (updated) {
+          store.setSender(newSender);
+        }
+      }
     }
-  }, [mounted, store.sender.name, profile.sender.name, profile.paymentDetails]);
+  }, [mounted, store.sender.name, profile.sender.name, profile.paymentDetails, profile.sender.signatureUrl, profile.sender.logoUrl, store.sender]);
 
   if (!mounted) return null;
 
@@ -71,13 +87,14 @@ export default function CoreGeneratorApp() {
         senderPhone: store.sender.phone,
         senderAddress: store.sender.address,
         logoUrl: store.sender.logoUrl,
+        signatureUrl: store.sender.signatureUrl,
         clientName: store.client.name,
         clientEmail: store.client.email,
         clientAddress: store.client.address,
         discountType: store.discountType,
-        discountValue: store.discountValue,
-        taxRate1: store.taxRate1,
-        taxRate2: store.taxRate2,
+        discountValue: Number(store.discountValue) || 0,
+        taxRate1: Number(store.taxRate1) || 0,
+        taxRate2: Number(store.taxRate2) || 0,
         currency: store.currency,
         notes: store.notes,
         terms: store.terms,
@@ -91,22 +108,22 @@ export default function CoreGeneratorApp() {
         swiftCode: store.paymentDetails.swiftCode,
         bankAddress: store.paymentDetails.bankAddress,
         bankNotes: store.paymentDetails.bankNotes,
-        subtotal: store.calculations.subtotal,
-        total: store.calculations.total,
+        subtotal: Number(store.calculations.subtotal) || 0,
+        total: Number(store.calculations.total) || 0,
         lineItems: store.lineItems.map(item => ({
           name: item.name,
           description: item.description,
-          quantity: item.quantity,
-          rate: item.rate,
+          quantity: Number(item.quantity) || 0,
+          rate: Number(item.rate) || 0,
           unit: item.unit
         }))
       };
       
       await saveInvoiceToDb(payload);
       toast.success("Invoice successfully saved to the cloud!");
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      toast.error("Failed to save invoice.");
+      toast.error(error.message || "Failed to save invoice.");
     } finally {
       setIsSaving(false);
     }
