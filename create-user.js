@@ -1,4 +1,4 @@
-﻿const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
 const prisma = new PrismaClient();
@@ -29,7 +29,7 @@ async function main() {
     }
   });
 
-  console.log(Success! Created secure user ID:  | Email: );
+  console.log(`Success! Created secure user ID: ${user.id} | Email: ${user.email}`);
 }
 
 main()
@@ -38,5 +38,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.();
+    await prisma.$disconnect();
   });

@@ -3,10 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FileText, Users, Box } from 'lucide-react';
+import { LayoutDashboard, FileText, Users, Box, ShieldAlert } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.email === 'invoice@varsaka.com';
 
   const links = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -18,6 +21,10 @@ export const Sidebar = () => {
   const bottomLinks = [
     { name: 'Settings', href: '/profile', icon: require('lucide-react').Settings },
   ];
+
+  if (isAdmin) {
+    bottomLinks.unshift({ name: 'User Management', href: '/admin/users', icon: ShieldAlert });
+  }
 
   return (
     <aside style={{ width: '240px', background: 'var(--bg-surface)', borderRight: '1px solid var(--border-light)', padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '100vh', position: 'sticky', top: 0 }}>
