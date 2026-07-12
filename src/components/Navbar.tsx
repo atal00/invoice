@@ -30,7 +30,7 @@ export const Navbar = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
         <Link href="/" style={{ textDecoration: 'none' }}>
           <h1 style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>
-            INVOICER<span style={{ color: 'var(--accent-primary)' }}>.</span>
+            VARSAKA<span style={{ color: 'var(--accent-primary)' }}>.</span>
           </h1>
         </Link>
         <nav style={{ display: 'none', gap: '2.5rem' }} className="md-flex">

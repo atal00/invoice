@@ -12,8 +12,8 @@ const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], varia
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
-  title: "Premium Invoice Generator",
-  description: "Advanced autonomous invoice generation platform",
+  title: "Varsaka Invoice",
+  description: "Varsaka Premium Invoice Generator",
 };
 
 export default function RootLayout({
