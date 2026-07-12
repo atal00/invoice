@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { ArrowRight } from 'lucide-react';
 import { usePathname } from 'next/navigation';
@@ -28,7 +29,8 @@ export const Navbar = () => {
       zIndex: 50 
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-        <Link href="/" style={{ textDecoration: 'none' }}>
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <Image src="/logo.png" alt="Varsaka Logo" width={32} height={32} style={{ borderRadius: '4px' }} />
           <h1 style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>
             VARSAKA<span style={{ color: 'var(--accent-primary)' }}>.</span>
           </h1>
