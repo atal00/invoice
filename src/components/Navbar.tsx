@@ -53,8 +53,8 @@ export const Navbar = () => {
         </nav>
       </div>
       <div style={{ display: 'flex', gap: '1.25rem' }}>
-        <Link href="/register">
-          <Button className="spatial-hover" style={{ padding: '0.4rem 1rem', fontSize: '0.875rem' }}>Get Started <ArrowRight size={14} /></Button>
+        <Link href="/login">
+          <Button className="spatial-hover" style={{ padding: '0.4rem 1rem', fontSize: '0.875rem' }}>Login <ArrowRight size={14} /></Button>
         </Link>
       </div>
       <style>{`

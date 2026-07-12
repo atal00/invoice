@@ -52,9 +52,6 @@ export default function LoginPage() {
             <Link href="#" style={{ color: '#475569', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none' }}>Forgot Password?</Link>
           </div>
           
-          <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
-            <Link href="/register" style={{ color: '#3b82f6', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none' }}>Create an Account</Link>
-          </div>
         </form>
       </div>
     </div>

@@ -55,8 +55,8 @@ export default function LandingPage() {
           <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', marginBottom: '3rem', maxWidth: '600px', lineHeight: 1.6 }}>
             Generate, customize, and manage your invoices within a frictionless, multi-tenant cloud environment built for modern professionals.
           </p>
-          <Link href="/register">
-            <Button style={{ fontSize: '1.125rem', padding: '1rem 2.5rem' }} className="glow-hover">Start Invoicing Free <CheckCircle2 style={{ marginLeft: '0.5rem' }} /></Button>
+          <Link href="/login">
+            <Button style={{ fontSize: '1.125rem', padding: '1rem 2.5rem' }} className="glow-hover">Login to Dashboard <CheckCircle2 style={{ marginLeft: '0.5rem' }} /></Button>
           </Link>
           
           {/* Mini Interactive Preview */}
