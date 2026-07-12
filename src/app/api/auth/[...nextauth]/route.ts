@@ -13,7 +13,8 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        const forwardedFor = headers().get('x-forwarded-for') || headers().get('x-real-ip');
+        const headersList = await headers();
+        const forwardedFor = headersList.get('x-forwarded-for') || headersList.get('x-real-ip');
         const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : 'unknown';
 
         if (ip !== 'unknown') {
