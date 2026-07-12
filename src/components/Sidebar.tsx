@@ -23,6 +23,7 @@ export const Sidebar = () => {
   ];
 
   if (isAdmin) {
+    bottomLinks.unshift({ name: 'IP Security', href: '/admin/security', icon: ShieldAlert });
     bottomLinks.unshift({ name: 'User Management', href: '/admin/users', icon: ShieldAlert });
   }
 

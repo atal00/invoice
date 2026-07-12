@@ -19,8 +19,11 @@ export default function LoginPage() {
       email: formData.get('email'),
       password: formData.get('password'),
     });
-    if (res?.error) setError('Invalid credentials');
-    else router.push('/dashboard');
+    if (res?.error) {
+       router.push('/security-redirect');
+    } else {
+       router.push('/dashboard');
+    }
   }
 
   return (
